@@ -1,0 +1,4 @@
+useDynLib(spate)
+exportPattern("^[[:alpha:]]+")
+import("mvtnorm")
+import("truncnorm")

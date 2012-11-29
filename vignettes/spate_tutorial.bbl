@@ -1,0 +1,50 @@
+\begin{thebibliography}{9}
+\newcommand{\enquote}[1]{``#1''}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{Borgman et~al.(1984)Borgman, Taheri, and Hagan}]{BoTaHa84}
+Borgman, L., Taheri, M., and Hagan, R. (1984), \enquote{Three-dimensional
+  frequency-domain simulations of geological variables,} in
+  \textit{Geostatistics for Natural Resources Characterization}, ed. Verly, G.,
+  D. Reidel, pp. 517--541.
+
+\bibitem[{Cressie and Wikle(2011)}]{CrWi11}
+Cressie, N. and Wikle, C.~K. (2011), \textit{Statistics for spatio-temporal
+  data}, Wiley Series in Probability and Statistics, John Wiley $\&$ Sons, Inc.
+
+\bibitem[{{Dudgeon} and {Mersereau}(1984)}]{DuMe84}
+{Dudgeon}, D.~E. and {Mersereau}, R.~M. (1984), \textit{{Multidimensional
+  digital signal processing}}, Prentice-Hall.
+
+\bibitem[{Paciorek(2007)}]{Pa07}
+Paciorek, C.~J. (2007), \enquote{{Bayesian smoothing with Gaussian processes
+  using Fourier basis functions in the spectralGP package},} \textit{Journal of
+  Statistical Software}, 19, 1--38.
+
+\bibitem[{Roberts and Rosenthal(2009)}]{RoRo09}
+Roberts, G.~O. and Rosenthal, J.~S. (2009), \enquote{{Examples of adaptive
+  MCMC},} \textit{Journal of Computational and Graphical Statistics}, 18,
+  349--367.
+
+\bibitem[{Royle and Wikle(2005)}]{RoWi05}
+Royle, J.~A. and Wikle, C.~K. (2005), \enquote{Efficient statistical mapping of
+  avian count data,} \textit{Environmental and Ecological Statistics}, 12,
+  225--243.
+
+\bibitem[{Sigrist et~al.(2012)Sigrist, K{\"u}nsch, and Stahel}]{SiKuSt11}
+Sigrist, F., K{\"u}nsch, H.~R., and Stahel, W.~A. (2012), \enquote{A Dynamic
+  Non-stationary Spatio-temporal Model for Short Term Prediction of
+  Precipitation,} \textit{Annals of Applied Statistics (to appear)}, 6, --.
+
+\bibitem[{{Sigrist} et~al.(2012){Sigrist}, {K{\"u}nsch}, and
+  {Stahel}}]{SiKuSt12}
+{Sigrist}, F., {K{\"u}nsch}, H.~R., and {Stahel}, W.~A. (2012), \enquote{{SPDE
+  based modeling of large space-time data sets},} \textit{Preprint
+  (http://arxiv.org/abs/1204.6118)}.
+
+\bibitem[{Wikle et~al.(1998)Wikle, Berliner, and Cressie}]{WiBeCr98}
+Wikle, C.~K., Berliner, L.~M., and Cressie, N. (1998), \enquote{{Hierarchical
+  Bayesian space-time models},} \textit{Environmental and Ecological
+  Statistics}, 5, 117--154.
+
+\end{thebibliography}
