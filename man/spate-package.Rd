@@ -22,8 +22,8 @@ Fabio Sigrist, Hans R. Kuensch, Werner A. Stahel
 Maintainer: Fabio Sigrist <sigrist@stat.math.ethz.ch> 
 }
 \references{
-  Fabio Sigrist, Hans R. K\"unsch, and Werner A. Stahel, "SPDE base
-  modeling of large space-time data sets" (preprint)
+  Fabio Sigrist, Hans R. K\"unsch, and Werner A. Stahel, "SPDE based
+  modeling of large space-time data sets" (preprint: http://arxiv.org/abs/1204.6118)
 }
 
 \keyword{ package }

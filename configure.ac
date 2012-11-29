@@ -1,6 +1,6 @@
 ## 
-## This file is part of spate. This file was made by adapting 
-## the corresponding file in the 'fftw' R package.
+## This file was made by adapting the corresponding 
+## file in the 'fftw' R package.
 ##
 ## Process this file with autoconf to produce a configure script.
 ##

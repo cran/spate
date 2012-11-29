@@ -930,7 +930,7 @@ spate.mcmc <- function(y, coord=NULL, lengthx=NULL, lengthy=NULL,Sind=NULL, n=NU
         if(i>=(BurnInCovEst+NCovEst)){
           RWCovP <- MultCov*cov(t(parhC[,(BurnInCovEst+1):(i+1)]))
           eigenv <- eigen(RWCovP[indEst,indEst])$value
-          if(is.real(eigenv) &  sum(eigenv<=0)==0){
+          if(is.double(eigenv) &  sum(eigenv<=0)==0){
             RWCov <- RWCovP
             if(printRWCov){
               cat("Estimated proposal covariance for hyperparameters: \n")

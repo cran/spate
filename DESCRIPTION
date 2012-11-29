@@ -2,7 +2,7 @@ Package: spate
 Type: Package
 Title: Spatio-temporal modeling of large data using a spectral SPDE
         approach
-Version: 1.0
+Version: 1.1
 Date: 2012-11-29
 Author: Fabio Sigrist, Hans R. Kuensch, Werner A. Stahel
 Maintainer: Fabio Sigrist <sigrist@stat.math.ethz.ch>
@@ -33,6 +33,6 @@ Description: This is an R package for spatio-temporal modeling of large
         distribution with point mass at zero. Covariates can be
         included in the model through a regression term.
 License: GPL-2
-Packaged: 2012-11-29 13:53:02 UTC; fsigrist
+Packaged: 2013-01-11 12:53:59 UTC; fsigrist
 Repository: CRAN
-Date/Publication: 2012-11-29 18:26:54
+Date/Publication: 2013-01-11 14:27:46
