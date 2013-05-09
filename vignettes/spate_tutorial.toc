@@ -1,0 +1,24 @@
+\contentsline {section}{\numberline {1}Introduction}{3}
+\contentsline {subsection}{\numberline {1.1}Notation}{3}
+\contentsline {section}{\numberline {2}Summary of modeling background}{4}
+\contentsline {subsection}{\numberline {2.1}Space-time Gaussian process defined through an SPDE}{4}
+\contentsline {subsection}{\numberline {2.2}Spectral solution}{5}
+\contentsline {subsection}{\numberline {2.3}Non-Gaussian data, covariates, and missing data}{7}
+\contentsline {subsection}{\numberline {2.4}Computationally efficient frequentist and Bayesian inference}{8}
+\contentsline {subsection}{\numberline {2.5}Dimension reduction}{8}
+\contentsline {section}{\numberline {3}Parametrization of the dynamic space-time model}{9}
+\contentsline {subsection}{\numberline {3.1}Innovation spectrum $\setbox \z@ \hbox {\frozen@everymath \@emptytoks \mathsurround \z@ $\textstyle {\boldsymbol Q}$}\mathaccent "0362{{\boldsymbol Q}}$ and Mat\'ern spectrum}{9}
+\contentsline {subsection}{\numberline {3.2}Propagator matrix ${\boldsymbol G}$}{9}
+\contentsline {subsection}{\numberline {3.3}Two-dimensional real Fourier transform}{11}
+\contentsline {section}{\numberline {4}Simulation and plotting}{13}
+\contentsline {section}{\numberline {5}Inference: log-likelihood evaluation and sampling from the full conditional}{14}
+\contentsline {subsection}{\numberline {5.1}Example of use of {\tt sample.four.coef\rm }}{14}
+\contentsline {subsection}{\numberline {5.2}Example of use of {\tt loglike\rm }}{15}
+\contentsline {subsection}{\numberline {5.3}Maximum likelihood estimation}{16}
+\contentsline {subsection}{\numberline {5.4}Bayesian inference using MCMC}{17}
+\contentsline {subsubsection}{\numberline {5.4.1}Skewed Tobit model and missing data}{18}
+\contentsline {section}{\numberline {6}An MCMC algorithm}{18}
+\contentsline {subsection}{\numberline {6.1}Arguments of {\tt spate.mcmc\rm }}{18}
+\contentsline {subsection}{\numberline {6.2}Additional fine tuning}{19}
+\contentsline {subsection}{\numberline {6.3}An example of the use of {\tt spate.mcmc\rm }}{20}
+\contentsline {subsection}{\numberline {6.4}Making predictions with {\tt spate.predict\rm }}{21}

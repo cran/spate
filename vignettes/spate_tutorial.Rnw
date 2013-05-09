@@ -468,7 +468,7 @@ alphat1b <- propagate.spectral(alphat,n=n,Gvec=Gvec)
 ## Both methods do the same thing:
 sum(abs(alphat1a-alphat1b))
 @
-
+\setkeys{Gin}{width=\textwidth} 
 \begin{figure}[!h]
   \centering
 <<label=Propagate2,fig=TRUE,echo=FALSE,width=7,height=3.5>>=

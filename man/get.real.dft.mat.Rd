@@ -70,7 +70,10 @@ spec.MD <- t(Phi.MD) \%*\% image
 image.MD <- Phi.MD \%*\% spec.MD
 spec.HD <- t(Phi.HD) \%*\% image
 image.HD <- Phi.HD \%*\% spec.HD
-image(1:n, 1:n, matrix(image.LD, nrow = n),col = cols(),xlab="",ylab="",main="45 of 2500 Fourier terms")
-image(1:n, 1:n, matrix(image.MD, nrow = n),col = cols(),xlab="",ylab="",main="101 of 2500 Fourier terms")
-image(1:n, 1:n, matrix(image.HD, nrow = n),col = cols(),xlab="",ylab="",main="All 2500 Fourier terms")
+image(1:n, 1:n, matrix(image.LD, nrow = n),col = cols(),
+      xlab="",ylab="",main="45 of 2500 Fourier terms")
+image(1:n, 1:n, matrix(image.MD, nrow = n),col = cols(),
+      xlab="",ylab="",main="101 of 2500 Fourier terms")
+image(1:n, 1:n, matrix(image.HD, nrow = n),col = cols(),
+      xlab="",ylab="",main="All 2500 Fourier terms")
 }

@@ -2,8 +2,8 @@ Package: spate
 Type: Package
 Title: Spatio-temporal modeling of large data using a spectral SPDE
         approach
-Version: 1.1
-Date: 2012-11-29
+Version: 1.2
+Date: 2013-05-09
 Author: Fabio Sigrist, Hans R. Kuensch, Werner A. Stahel
 Maintainer: Fabio Sigrist <sigrist@stat.math.ethz.ch>
 Depends: mvtnorm, truncnorm
@@ -24,7 +24,7 @@ Description: This is an R package for spatio-temporal modeling of large
         approaches. First, the SPDE based spatio-temporal model can be
         used as a component in a customized hierarchical Bayesian model
         (HBM). The functions of the package then provide
-        parametrizations of the process part of the model as well as
+        parameterizations of the process part of the model as well as
         computationally efficient algorithms needed for doing inference
         with the HBM. Alternatively, the adaptive MCMC algorithm
         implemented in the package can be used as an algorithm for
@@ -33,6 +33,7 @@ Description: This is an R package for spatio-temporal modeling of large
         distribution with point mass at zero. Covariates can be
         included in the model through a regression term.
 License: GPL-2
-Packaged: 2013-01-11 12:53:59 UTC; fsigrist
+Packaged: 2013-05-09 16:27:55 UTC; fsigrist
+NeedsCompilation: yes
 Repository: CRAN
-Date/Publication: 2013-01-11 14:27:46
+Date/Publication: 2013-05-09 19:13:08

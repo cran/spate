@@ -8,7 +8,7 @@ Spectrum of the innovation term epsilon.
   Spectrum of the innovation term epsilon.
 }
 \usage{
-innov.spec(wave, n, ns=4, rho0, sigma2, zeta, rho1, alpha, gamma, nu = 1, dt=1, norm = TRUE)
+innov.spec(wave,n,ns=4,rho0,sigma2,zeta,rho1,alpha,gamma,nu=1,dt=1,norm=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

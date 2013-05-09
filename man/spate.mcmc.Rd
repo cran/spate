@@ -18,7 +18,7 @@ spate.mcmc(y,coord=NULL,lengthx=NULL,lengthy=NULL,Sind=NULL,n=NULL,
           DimRed=FALSE,NFour=NULL,indEst=1:9,Nmc=10000,BurnIn =1000,
           path=NULL,file=NULL,SaveToFile=FALSE,PlotToFile=FALSE,
           FixEffMetrop=TRUE,saveProcess=FALSE,Nsave=200,seed=NULL,
-          Padding=TRUE,adaptive=TRUE,NCovEst=500,BurnInCovEst=500,
+          Padding=FALSE,adaptive=TRUE,NCovEst=500,BurnInCovEst=500,
           MultCov=0.5,printRWCov=FALSE,MultStdDevLambda=0.75,
           Separable=FALSE,Drift=!Separable,Diffusion=!Separable,
           logInd=c(1,2,3,4,5,9),nu=1,plotTrace=TRUE,
@@ -297,8 +297,13 @@ w <- spateSim$w
 ##Below is an example to illustrate the use of the MCMC algorithm.
 ##In practice, more samples are needed for a sufficiently large effective sample size.
 
-##The following takes a couple of minutes. Load the precomputed object some lines below to save time.
-##spateMCMC <- spate.mcmc(y=w,x=NULL,SV=c(rho0=0.2,sigma2=0.1,zeta=0.25,rho1=0.2,gamma=1,alpha=0.3,muX=0,muY=0,tau2=0.005),RWCov=diag(c(0.005,0.005,0.05,0.005,0.005,0.001,0.0002,0.0002,0.0002)),Nmc=10000,BurnIn=2000,seed=4,Padding=FALSE,plotTrace=TRUE,NCovEst=500,BurnInCovEst=500,trueVal=par,saveProcess=TRUE)
+##The following takes a couple of minutes.
+##Load the precomputed object some lines below to save time.
+##spateMCMC <- spate.mcmc(y=w,x=NULL,SV=c(rho0=0.2,sigma2=0.1,
+##              zeta=0.25,rho1=0.2,gamma=1,alpha=0.3,muX=0,muY=0,tau2=0.005),
+##              RWCov=diag(c(0.005,0.005,0.05,0.005,0.005,0.001,0.0002,0.0002,0.0002)),
+##              Nmc=10000,BurnIn=2000,seed=4,Padding=FALSE,plotTrace=TRUE,NCovEst=500,
+##              BurnInCovEst=500,trueVal=par,saveProcess=TRUE)
 ##spateMCMC
 ##plot(spateMCMC.fit,true=par,postProcess=TRUE)
 
