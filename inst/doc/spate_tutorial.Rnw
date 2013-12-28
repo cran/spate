@@ -18,9 +18,12 @@
 ## path="/u/sigrist/R/Precipitation/SPDEFreq/"
 ## require(spate,"/u/sigrist/R/Precipitation/SPDEFreq/install")
 require(spate)
+# require(colorspace)
+# cols=function() return(colscale=diverge_hcl(n, c = c(100, 0), l = c(50, 90), power = 1.3))
 @ 
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
  \title{\func{spate}: an R Package for Statistical Modeling with SPDE Based Spatio-Temporal Gaussian Processes} 
     \author{Fabio Sigrist, Hans R. K\"unsch, Werner A. Stahel\\ Seminar for
   Statistics, Department of Mathematics, ETH Z\"urich\\ 8092 Z\"urich, Switzerland}
@@ -468,7 +471,7 @@ alphat1b <- propagate.spectral(alphat,n=n,Gvec=Gvec)
 ## Both methods do the same thing:
 sum(abs(alphat1a-alphat1b))
 @
-\setkeys{Gin}{width=\textwidth} 
+  \setkeys{Gin}{width=\textwidth} 
 \begin{figure}[!h]
   \centering
 <<label=Propagate2,fig=TRUE,echo=FALSE,width=7,height=3.5>>=
@@ -925,7 +928,7 @@ spateMCMC <-spate.mcmc(y=w,x=NULL,SV=c(rho0=0.2,sigma2=0.1,
                       RWCov=diag(c(0.005,0.005,0.05,0.005,
                         0.005,0.001,0.0002,0.0002,0.0002)),
                       Nmc=10000,BurnIn=2000,seed=4,NCovEst=500,
-                      BurnInCovEst=500,trace=FALSE)
+                      BurnInCovEst=500,trace=FALSE,Padding=FALSE)
 @
 <<label=MCMC1,eval=TRUE,echo=FALSE>>=
 ## Simulate data
@@ -941,7 +944,7 @@ spateMCMC
 \begin{figure}[!h]
   \centering
 <<label=MCMC4,fig=TRUE,echo=TRUE,width=7,height=7>>=
-plot(spateMCMC,true=par,medianHist=FALSE,ask=FALSE)
+plot(spateMCMC,true=par,hist=FALSE,ask=FALSE)
 @
 \caption{Trace plots from the MCMC algorithm. The vertical line shows the
   burn-in, and the horizontal lines are the true values of the parameters.} 
@@ -1024,7 +1027,56 @@ for(i in 1:3){
 We would like to thank Martin M\"achler for his helpful support and advice.
 
 
-\bibliography{spate_tutorial}
+\begin{thebibliography}{9}
+\newcommand{\enquote}[1]{``#1''}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{Borgman et~al.(1984)Borgman, Taheri, and Hagan}]{BoTaHa84}
+Borgman, L., Taheri, M., and Hagan, R. (1984), \enquote{Three-dimensional
+  frequency-domain simulations of geological variables,} in
+  \textit{Geostatistics for Natural Resources Characterization}, ed. Verly, G.,
+  D. Reidel, pp. 517--541.
+
+\bibitem[{Cressie and Wikle(2011)}]{CrWi11}
+Cressie, N. and Wikle, C.~K. (2011), \textit{Statistics for spatio-temporal
+  data}, Wiley Series in Probability and Statistics, John Wiley $\&$ Sons, Inc.
+
+\bibitem[{{Dudgeon} and {Mersereau}(1984)}]{DuMe84}
+{Dudgeon}, D.~E. and {Mersereau}, R.~M. (1984), \textit{{Multidimensional
+  digital signal processing}}, Prentice-Hall.
+
+\bibitem[{Paciorek(2007)}]{Pa07}
+Paciorek, C.~J. (2007), \enquote{{Bayesian smoothing with Gaussian processes
+  using Fourier basis functions in the spectralGP package},} \textit{Journal of
+  Statistical Software}, 19, 1--38.
+
+\bibitem[{Roberts and Rosenthal(2009)}]{RoRo09}
+Roberts, G.~O. and Rosenthal, J.~S. (2009), \enquote{{Examples of adaptive
+  MCMC},} \textit{Journal of Computational and Graphical Statistics}, 18,
+  349--367.
+
+\bibitem[{Royle and Wikle(2005)}]{RoWi05}
+Royle, J.~A. and Wikle, C.~K. (2005), \enquote{Efficient statistical mapping of
+  avian count data,} \textit{Environmental and Ecological Statistics}, 12,
+  225--243.
+
+\bibitem[{Sigrist et~al.(2012)Sigrist, K{\"u}nsch, and Stahel}]{SiKuSt11}
+Sigrist, F., K{\"u}nsch, H.~R., and Stahel, W.~A. (2012), \enquote{A Dynamic
+  Non-stationary Spatio-temporal Model for Short Term Prediction of
+  Precipitation,} \textit{Annals of Applied Statistics (to appear)}, 6, --.
+
+\bibitem[{{Sigrist} et~al.(2012){Sigrist}, {K{\"u}nsch}, and
+  {Stahel}}]{SiKuSt12}
+{Sigrist}, F., {K{\"u}nsch}, H.~R., and {Stahel}, W.~A. (2012), \enquote{{SPDE
+  based modeling of large space-time data sets},} \textit{Preprint
+  (http://arxiv.org/abs/1204.6118)}.
+
+\bibitem[{Wikle et~al.(1998)Wikle, Berliner, and Cressie}]{WiBeCr98}
+Wikle, C.~K., Berliner, L.~M., and Cressie, N. (1998), \enquote{{Hierarchical
+  Bayesian space-time models},} \textit{Environmental and Ecological
+  Statistics}, 5, 117--154.
+
+\end{thebibliography}
 
 \end{document}
 

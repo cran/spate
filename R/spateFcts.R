@@ -16,6 +16,14 @@ get.real.dft.mat <- function(wave,indCos,ns=4,n){
 }
 
 matern.spec <- function(wave,n,ns=4,rho0,sigma2,nu=1,norm=TRUE){
+  if(nu<=0){
+    print("Error: nu needs to be positive")
+    return()
+  }
+  if(sigma2<=0){
+    print("Error: sigma2 needs to be positive")
+    return()
+  }
   NF <- dim(wave)[2]
   w2 <- apply(wave^2,2,sum)
   d <- 2
@@ -28,10 +36,31 @@ matern.spec <- function(wave,n,ns=4,rho0,sigma2,nu=1,norm=TRUE){
   }else{
     spec <- spec/sum(spec)
   }
+  spec=sigma2*spec
   return(spec)
 }
 innov.spec <- function(wave,n,ns=4,rho0,sigma2,zeta,rho1,alpha,gamma,nu=1,dt=1,norm=TRUE){
-  spec <- matern.spec(wave=wave,n=n,ns=ns,rho0=rho0,sigma2=sigma2,nu=nu,norm=norm)
+  if(nu<0){
+    print("Error: nu needs to be positive")
+    return()
+  }
+  if(sigma2<0){
+    print("Error: sigma2 needs to be positive")
+    return()
+  }
+  if(zeta<0){
+    print("Error: zeta needs to be positive")
+    return()
+  }
+  if(gamma<0){
+    print("Error: gamma needs to be positive")
+    return()
+  }
+  if(alpha<0 & alpha>=(pi/2)){
+    print("Error: alpha needs to be between 0 and pi/2")
+    return()
+  }
+  spec <- matern.spec(wave=wave,n=n,ns=ns,rho0=rho0,sigma2=1,nu=nu,norm=norm)
   NF <- dim(wave)[2]
   if(rho1==0){
     Sig <- cbind(c(0,0),c(0,0))
@@ -230,7 +259,8 @@ Plambda <- function(lambda,log=FALSE){
 
 wave.numbers <- function(n){
   if(n%%2==1){
-    print("n must be even")
+    print("Error: n must be even")
+    return()
   }else{
     idx <- c(rep(0:(n/2),n/2+1),rep(1:(n/2-1),n/2-1))
     idy <- c(as.vector(apply(matrix(0:(n/2)),1,rep,times=(n/2+1))),as.vector(apply(matrix((-n/2+1):(-1)),1,rep,times=(n/2-1))))
@@ -242,8 +272,8 @@ wave.numbers <- function(n){
     wave[,indCos] <- wa[,-sinex]
     wave[,indCos+1] <- wa[,-sinex]
     wave <- wave*2*pi##/n
+    return(list(wave=wave,indCos=indCos))
   }
-  return(list(wave=wave,indCos=indCos))
 }
 
 index.complex.to.real.dft <- function(n){
@@ -308,8 +338,8 @@ summary.spateSim <- function(object,...){
 }
 spate.plot <- function(xi, nx=NULL, whichT=NULL, format = "ImgTogether", ToFile = FALSE, path=NULL, file=NULL, indScale = FALSE , main=NULL, mfrow = NULL, imagesize = c(1000, 1000), zlim = NULL, breaks = NULL,...){
   if(is.null(whichT)) whichT <- 1:dim(xi)[1]
-  if(is.null(zlim)) zlim <- c(min(xi), max(xi))
-  if(is.null(breaks)) breaks = seq(from = zlim[1],to = zlim[2], length.out = 65)
+  if(is.null(zlim)) zlim <- c(min(xi[whichT,]), max(xi[whichT,]))
+  if(is.null(breaks)) breaks = seq(from = zlim[1],to = zlim[2], length.out = length(cols())+1)
   if(is.null(nx)){
     nx <- ny <- sqrt(dim(xi)[2])
   }else{
@@ -715,7 +745,7 @@ spate.mcmc <- function(y, coord=NULL, lengthx=NULL, lengthy=NULL,Sind=NULL, n=NU
   }else{
     Prediction=TRUE
     if(!is.null(x)) indFECoef <- (length(ParNames)+1):(length(ParNames)+dim(x)[1])
-    ypred <- array(0,c(length(tPred),length(sPred),Nmc))##change indS with padding
+    ypred <- array(0,c(length(tPred),length(sPred),Nmc-BurnIn))##change indS with padding
   }
   ##Covariates
   if(!is.null(x) & !Prediction){
@@ -1014,7 +1044,7 @@ spate.mcmc <- function(y, coord=NULL, lengthx=NULL, lengthy=NULL,Sind=NULL, n=NU
           }else{
             if(iFirst){
               devPar <- dev.cur()
-              x11()
+              dev.new()
               devProc <- dev.cur()
             }else{
               dev.set(devProc)
@@ -1059,7 +1089,7 @@ spate.predict <- function(y, tPred,sPred=NULL,xPred=NULL,yPred=NULL,spateMCMC,Ns
   }
   spl <- ((1:(Nsim+BurnIn))-1)*trunc((dim(spateMCMC$Post)[2]-spateMCMC$BurnIn)/(Nsim+BurnIn))+1+spateMCMC$BurnIn
   post <- spateMCMC[[1]][,spl]
-  ypred <- spate.mcmc(y=y, tPred=tPred,sPred=sPred,Nmc=Nsim,BurnIn=BurnIn, coord=coord, lengthx=lengthx, lengthy=lengthy,Sind=Sind, n=n, IncidenceMat=IncidenceMat, x = x, DataModel = DataModel,DimRed=DimRed,NFour=NFour, seed = seed, Padding = spateMCMC$Padding, nu = nu,trace=trace,parh=post)
+  ypred <- spate.mcmc(y=y, tPred=tPred,sPred=sPred,Nmc=(Nsim+BurnIn),BurnIn=BurnIn, coord=coord, lengthx=lengthx, lengthy=lengthy,Sind=Sind, n=n, IncidenceMat=IncidenceMat, x = x, DataModel = DataModel,DimRed=DimRed,NFour=NFour, seed = seed, Padding = spateMCMC$Padding, nu = nu,trace=trace,parh=post)
   if(is.null(xPred)) return(ypred) else return(apply(ypred,3,diag))
 }
 

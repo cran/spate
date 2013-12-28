@@ -6,6 +6,8 @@
 ## path="/u/sigrist/R/Precipitation/SPDEFreq/"
 ## require(spate,"/u/sigrist/R/Precipitation/SPDEFreq/install")
 require(spate)
+# require(colorspace)
+# cols=function() return(colscale=diverge_hcl(n, c = c(100, 0), l = c(50, 90), power = 1.3))
 
 
 ###################################################
@@ -248,7 +250,7 @@ round(MleConfInt,digits=3)
 ##                       RWCov=diag(c(0.005,0.005,0.05,0.005,
 ##                         0.005,0.001,0.0002,0.0002,0.0002)),
 ##                       Nmc=10000,BurnIn=2000,seed=4,NCovEst=500,
-##                       BurnInCovEst=500,trace=FALSE)
+##                       BurnInCovEst=500,trace=FALSE,Padding=FALSE)
 
 
 ###################################################
@@ -270,7 +272,7 @@ spateMCMC
 ###################################################
 ### code chunk number 19: MCMC4
 ###################################################
-plot(spateMCMC,true=par,medianHist=FALSE,ask=FALSE)
+plot(spateMCMC,true=par,hist=FALSE,ask=FALSE)
 
 
 ###################################################
