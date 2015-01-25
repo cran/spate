@@ -11,7 +11,7 @@
 \tabular{ll}{
 Package: \tab spate\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
+Version: \tab 1.4\cr
 Date: \tab 2012-10-05\cr
 License: \tab GPL-2\cr
 }
@@ -22,8 +22,9 @@ Fabio Sigrist, Hans R. Kuensch, Werner A. Stahel
 Maintainer: Fabio Sigrist <sigrist@stat.math.ethz.ch> 
 }
 \references{
-  Fabio Sigrist, Hans R. K\"unsch, and Werner A. Stahel, "SPDE based
-  modeling of large space-time data sets" (preprint: http://arxiv.org/abs/1204.6118)
+  Fabio Sigrist, Hans R. K\"unsch, and Werner A. Stahel, "Stochastic Partial Differential Equation Based Modeling of Large Space-Time Data Sets", Journal of the Royal Statistical Society: Series B, Volume 77, Issue 1, 2015, pages 3-33
+
+  Fabio Sigrist, Hans R. Kuensch, Werner A. Stahel, "spate: An R Package for Spatio-Temporal Modeling with a Stochastic Advection-Diffusion Process.", Journal of Statistical Software, Volume 63, Number 14, 2015, pages 1-23, URL http://www.jstatsoft.org/v63/i14/
 }
 
 \keyword{ package }
