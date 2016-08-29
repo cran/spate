@@ -58,10 +58,10 @@ Number of point per axis of the square into which the points are
 mapped. In total, the process is modeled on a grid of size n*n.
   }
   \item{IncidenceMat}{
-Logical; if 'TRUE' and incidence matrix relating the latent process to
-observation locations. This is only recommended to use when the
+Logical; if 'TRUE' an incidence matrix relating the latent process to
+observation locations is used. This is only recommended to use when the
 observations are relatively low-dimensional and when the latent process
-is modeled in a reduced dimensional spaceas well.
+is modeled in a reduced dimensional space as well.
 }
   \item{x}{
  Covariates in an array of dimensions p x T X N, where p denotes the
