@@ -36,6 +36,8 @@ Fabio Sigrist
 }
 \examples{
 data <- matrix(rnorm(1200),nrow=6)
+opar <- par(no.readonly = TRUE)
 par(mfrow=c(2,3))
 trace.plot(data,true=rep(0,6))
+par(opar) # Reset par() settings
 }

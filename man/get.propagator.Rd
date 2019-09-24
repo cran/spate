@@ -72,9 +72,11 @@ G <- get.propagator(wave=wave$wave,indCos=wave$indCos,zeta=0.5, rho1=0.02, gamma
             alpha=pi/4, muX=0.2, muY=0.2,dt=1,ns=4)
 alphat1 <- G\%*\%alphat
 
+opar <- par(no.readonly = TRUE)
 par(mfrow=c(1,2))
 image(1:n,1:n,matrix(real.fft(alphat,n=n,inv=FALSE),nrow=n),main="Whittle
 field",xlab="",ylab="",col=cols())
 image(1:n,1:n,matrix(real.fft(alphat1,n=n,inv=FALSE),nrow=n),main="Propagated
 field",xlab="",ylab="",col=cols())
+par(opar) # Reset par() settings
 }

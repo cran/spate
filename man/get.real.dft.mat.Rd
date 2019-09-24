@@ -61,6 +61,7 @@ for(i in 1:n){
     image[(i-1)*n+j] <- cos(5*(i-n/2)/n*pi)*sin(5*(j)/n*pi)*(1-abs(i/n-1/2)-abs(j/n-1/2))
   }
 }
+opar <- par(no.readonly = TRUE)
 par(mfrow=c(2,2),mar=c(2,3,2,1))
 image(1:n, 1:n, matrix(image, nrow = n),col = cols(),xlab="",ylab="",main="Original image")
 ##Aply inverse Fourier transform, dimension reduction, and Fourier transform
@@ -76,4 +77,5 @@ image(1:n, 1:n, matrix(image.MD, nrow = n),col = cols(),
       xlab="",ylab="",main="101 of 2500 Fourier terms")
 image(1:n, 1:n, matrix(image.HD, nrow = n),col = cols(),
       xlab="",ylab="",main="All 2500 Fourier terms")
+par(opar) # Reset par() settings
 }

@@ -372,6 +372,8 @@ spate.plot <- function(xi, nx=NULL, whichT=NULL, format = "ImgTogether", ToFile 
       else if(length(whichT)<=16) mfrow=c(4,4)
       else mfrow=c(5,5)
     }
+    opar <- par(no.readonly =TRUE)
+    on.exit(par(opar))
     par(mfrow=mfrow,...)
     plot.xi()
     if(ToFile) dev.off()
@@ -447,7 +449,7 @@ spate.mcmc=function (y, coord = NULL, lengthx = NULL, lengthy = NULL, Sind = NUL
     RWCov <- diag(rep(0.005, 9))
   if (is.null(Sind) & is.null(coord)) {
     if ((sqrt(dim(y)[2]) - floor(sqrt(dim(y)[2]))) != 0) {
-      cat("Error: the data 'y' must be on a grid. For this, the square root of dim(y)[2] must be an integer corresponding to the number of points 'n' per axis. Either put 'NA's at the points where no observations are available or, alternatively, specify the the observations locations in 'Sind' or 'coord' and specify the number of grid points 'n' per axis. \n")
+      stop("The data 'y' must be on a grid. For this, the square root of dim(y)[2] must be an integer corresponding to the number of points 'n' per axis. Either put 'NA's at the points where no observations are available or, alternatively, specify the the observations locations in 'Sind' or 'coord' and specify the number of grid points 'n' per axis. \n")
       return()
     }
     else {
@@ -456,7 +458,7 @@ spate.mcmc=function (y, coord = NULL, lengthx = NULL, lengthy = NULL, Sind = NUL
       }
       else {
         if (n != sqrt(dim(y)[2])) {
-          cat("Error: if the data 'y' is given on a grid, the number of grid points 'n' per axis must equal the square root of dim(y)[2]. Either put 'NA's at the points where no observations are available or, alternatively, specify the the observations locations in 'Sind' or 'coord' and specify the number of grid points 'n' per axis. \n")
+          stop("If the data 'y' is given on a grid, the number of grid points 'n' per axis must equal the square root of dim(y)[2]. Either put 'NA's at the points where no observations are available or, alternatively, specify the the observations locations in 'Sind' or 'coord' and specify the number of grid points 'n' per axis. \n")
           return()
         }
       }
@@ -464,11 +466,11 @@ spate.mcmc=function (y, coord = NULL, lengthx = NULL, lengthy = NULL, Sind = NUL
   }
   else {
     if (is.null(n)) {
-      cat("Error: the number of points per axis 'n' must be specified. \n")
+      stop("The number of points per axis 'n' must be specified. \n")
       return()
     }
     #     else if (dim(y)[2]!=n*n & IncidenceMat==FALSE) {
-    #       cat("Error: the number of spatial points per time point does not correspond to n*n. 
+    #       stop("The number of spatial points per time point does not correspond to n*n. 
     #           Either make sure that dim(y)[2] equal n*n or use an incidence matrix by setting IncidenceMat=TRUE \n")
     #       return()
     #     }
@@ -487,7 +489,7 @@ spate.mcmc=function (y, coord = NULL, lengthx = NULL, lengthy = NULL, Sind = NUL
     y <- yp
     if (!is.null(x)) {
       if (dim(x)[3] != n * n) {
-        cat("Error: covariates need to be available in the increased domain due to the data augmentation in the MCMC algorithm. Alternatively, use an incidence matrix approach ('IncidenceMat=TRUE', see the help) in combination with dimension reduction so that the covariates need only be available at the locations where observations are made. \n")
+        stop("Covariates need to be available in the increased domain due to the data augmentation in the MCMC algorithm. Alternatively, use an incidence matrix approach ('IncidenceMat=TRUE', see the help) in combination with dimension reduction so that the covariates need only be available at the locations where observations are made. \n")
         return()
       }
     }
@@ -526,12 +528,16 @@ spate.mcmc=function (y, coord = NULL, lengthx = NULL, lengthy = NULL, Sind = NUL
       }
     }
     if (trace) 
-      cat("Observation locations mapped to grid. \n")
+      message("Observation locations mapped to grid.")
     if (plotObsLocations) {
-      if (PlotToFile) 
+      if (PlotToFile){
         jpeg(paste(path, "Locations2Grid_", file, ".jpeg", 
                    sep = ""), width = 1000, height = 1000)
-      else par(ask = T)
+      } else {
+        opar <- par(no.readonly =TRUE)
+        on.exit(par(opar))
+        par(ask = T)
+      } 
       plot(cellx, celly, pch = ".", cex = 1, xlab = "x", 
            ylab = "y", xlim = c(0, 1), ylim = c(0, 1), main = "Grid cell and observation points")
       abline(v = (0:n)/n)
@@ -546,7 +552,7 @@ spate.mcmc=function (y, coord = NULL, lengthx = NULL, lengthy = NULL, Sind = NUL
   if (!is.null(NFour)) {
     if (NFour < n * n & !DimRed) {
       DimRed <- TRUE
-      cat("Warning: 'DimRed' was changed to 'TRUE' since NFour<n*n implies a dimension reduction. \n")
+      warning("'DimRed' was changed to 'TRUE' since NFour<n*n implies a dimension reduction.")
     }
   }
   if (DimRed) 
@@ -555,10 +561,10 @@ spate.mcmc=function (y, coord = NULL, lengthx = NULL, lengthy = NULL, Sind = NUL
   spateFT <- spate.init(n = n, T = T, NF = NF)
   if (IncidenceMat) {
     if(is.null(NFour)){
-      cat("Error: If 'IncidenceMat' equals TRUE dimension reduction needs to be done since the FFT cannot be used. Please specify 'NFour' and make sure that NFour<<n*n. \n")
+      stop("If 'IncidenceMat' equals TRUE dimension reduction needs to be done since the FFT cannot be used. Please specify 'NFour' and make sure that NFour<<n*n. \n")
       return()
     }else if (NFour == n * n) {
-      cat("Error: If 'IncidenceMat' equals TRUE dimension reduction needs to be done since the FFT cannot be used. Please specify 'NFour' and make sure that NFour<<n*n. \n")
+      stop("If 'IncidenceMat' equals TRUE dimension reduction needs to be done since the FFT cannot be used. Please specify 'NFour' and make sure that NFour<<n*n. \n")
       return()
     }
     Phi <- get.real.dft.mat(wave = spateFT$wave, indCos = spateFT$indCos, 
@@ -570,7 +576,7 @@ spate.mcmc=function (y, coord = NULL, lengthx = NULL, lengthy = NULL, Sind = NUL
     IPhi <- I %*% Phi
     rm(I)
     if (trace) 
-      cat("Incidence matrix constructed. \n")
+      message("Incidence matrix constructed.")
   }
   wh <- y
   indNA <- is.na(y)
@@ -629,9 +635,8 @@ spate.mcmc=function (y, coord = NULL, lengthx = NULL, lengthy = NULL, Sind = NUL
   xiPost <- NULL
   if (saveProcess) {
     if (Nsave * T * n * n * 8/1e+06 > 100) 
-      cat(paste("Warning: saving ", Nsave, " samples from the posterior of the process requires ", 
-                Nsave * T * n * n * 8/1e+06, " MB of memory.", 
-                " \n", sep = ""))
+      warning(paste("Saving ", Nsave, " samples from the posterior of the process requires ", 
+                Nsave * T * n * n * 8/1e+06, " MB of memory.", sep = ""))
     xiPost <- array(0, c(T, n * n, Nsave))
   }
   if (DataModel == "SkewTobit") {
@@ -651,19 +656,19 @@ spate.mcmc=function (y, coord = NULL, lengthx = NULL, lengthy = NULL, Sind = NUL
   iFirst <- TRUE
   if (monitorProcess) {
     if (is.null(tProcess) | is.null(sProcess)) {
-      cat("Error: if 'monitorProcess=TRUE' is selected, 'tProcess' and 'sProcess' (temporal and spatial locations) for monitoring xi need to be specified. \n")
+      stop("if 'monitorProcess=TRUE' is selected, 'tProcess' and 'sProcess' (temporal and spatial locations) for monitoring xi need to be specified. \n")
       return()
     }
     Ntrace <- max(length(tProcess), length(sProcess))
     if (length(tProcess) < Ntrace) {
       tProcess <- c(tProcess, sample.int(dim(xih)[1], Ntrace - 
                                            length(tProcess)))
-      cat("Warning: The indeces 'tProcess' and 'sProcess' (temporal and spatial locations) for monitoring xi in the MCMC algorithm do not have the same length. Random numbers have been added to the shorter index so that they have the same length. \n")
+      warning("The indeces 'tProcess' and 'sProcess' (temporal and spatial locations) for monitoring xi in the MCMC algorithm do not have the same length. Random numbers have been added to the shorter index so that they have the same length. \n")
     }
     if (length(sProcess) < Ntrace) {
       sProcess <- c(sProcess, sample.int(dim(xih)[2], Ntrace - 
                                            length(sProcess)))
-      cat("Warning: The indeces 'tProcess' and 'sProcess' (temporal and spatial locations) for monitoring xi in the MCMC algorithm do not have the same length. Random numbers have been added to the shorter index so that they have the same length. \n")
+      warning("The indeces 'tProcess' and 'sProcess' (temporal and spatial locations) for monitoring xi in the MCMC algorithm do not have the same length. Random numbers have been added to the shorter index so that they have the same length. \n")
     }
     xiTrace <- array(0, c(Ntrace, Nmc + 1))
     indXiTrace <- array(0, c(2, Ntrace))
@@ -673,7 +678,7 @@ spate.mcmc=function (y, coord = NULL, lengthx = NULL, lengthy = NULL, Sind = NUL
                                     tProcess, " and location ", sProcess, sep = "")
   }
   if (trace) 
-    cat("Starting MCMC algorithm: \n")
+    message("Starting MCMC algorithm:")
   for (i in 1:Nmc) {
     if (Prediction) {
       if (DataModel == "SkewTobit") 
@@ -936,8 +941,8 @@ spate.mcmc=function (y, coord = NULL, lengthx = NULL, lengthy = NULL, Sind = NUL
         else xiPost[, , (i - BurnIn)/trunc((Nmc - BurnIn)/Nsave)] <- xih
       }
       if ((i%%100 == 0) & AcRate[1] <= 0.01) {
-        cat(paste("Acceptance rate for hyperparameters random walk is less than 1% after", 
-                  i, "iterations. Because of this, the proposal covariance matrix is devided by 100. \n"))
+        message(paste("Acceptance rate for hyperparameters random walk is less than 1% after", 
+                  i, "iterations. Because of this, the proposal covariance matrix is devided by 100."))
         RWCov <- RWCov/100
       }
       if (i == 200 & AcRate[1] == 0) 
@@ -956,12 +961,12 @@ spate.mcmc=function (y, coord = NULL, lengthx = NULL, lengthy = NULL, Sind = NUL
               0) {
             RWCov <- RWCovP
             if (printRWCov) {
-              cat("Estimated proposal covariance for hyperparameters: \n")
+              message("Estimated proposal covariance for hyperparameters:")
               print(signif(RWCov[indEst, indEst], digits = 2))
             }
           }
           else {
-            cat("Warning: random walk step for hyperparameters: estimated proposal covariance matrix is not positive definite. MCMC algorithm is continued with current proposal covariance matrix. Alternatively restart the algorithm with different settings (initial values, initial proposal covariance matrix etc.). \n")
+            warning("random walk step for hyperparameters: estimated proposal covariance matrix is not positive definite. MCMC algorithm is continued with current proposal covariance matrix. Alternatively restart the algorithm with different settings (initial values, initial proposal covariance matrix etc.). \n")
           }
         }
         if (DataModel == "SkewTobit") {
@@ -976,13 +981,13 @@ spate.mcmc=function (y, coord = NULL, lengthx = NULL, lengthy = NULL, Sind = NUL
                                             i > 400 & i <= 2000) | (i%%50 == 0 & i > 2000 & i <= 
                                                                     10000) | (i%%100 == 0 & i > 10000 & i <= 20000) | 
                  (i%%500 == 0 & i > 20000) | i == Nmc)) 
-      cat(".")
+      message(".",,appendLF=FALSE)
     if (i == 50 | (i%%100 == 0 & i <= 400) | (i%%200 == 0 & 
                                               i > 400 & i <= 2000) | (i%%500 == 0 & i > 2000 & 
                                                                       i <= 10000) | (i%%1000 == 0 & i > 10000 & i <= 20000) | 
         (i%%5000 == 0 & i > 20000) | i == Nmc) {
       if (trace) {
-        cat(paste("Iteration number: ", i, " \n", sep = ""))
+        message(paste("Iteration number: ", i, sep = ""))
         t2 <- Sys.time()
         dt <- (t2 - t1)/i * (Nmc - i)
         units(dt) <- "secs"
@@ -1003,27 +1008,27 @@ spate.mcmc=function (y, coord = NULL, lengthx = NULL, lengthy = NULL, Sind = NUL
         }
         dti <- (t2 - t1)/i
         units(dti) <- "secs"
-        cat(paste("COMPUTING TIME for one iteration: ", 
+        message(paste("COMPUTING TIME for one iteration: ", 
                   round(dti, digits = 3), " secs. Estimated remaining computing time: ", 
-                  tdif, " \n", sep = ""))
+                  tdif, sep = ""))
         if (!Prediction) {
           if (i <= (BurnInCovEst + NCovEst)) {
-            cat("ACCEPTANCE RATE for Metropolis-Hastings step:")
-            cat(paste("  Hyperparameters: ", round(AcRate[1]/i, 
-                                                   digits = 2), sep = ""))
+            message("ACCEPTANCE RATE for Metropolis-Hastings step:",appendLF=FALSE)
+            message(paste("  Hyperparameters: ", round(AcRate[1]/i, 
+                                                   digits = 2), sep = ""),appendLF=FALSE)
             if (DataModel == "SkewTobit") 
-              cat(paste(",  Tobit transformation parameter: ", 
-                        round(AcRate[2]/i, digits = 2), sep = ""))
-            cat("\n")
+              message(paste(",  Tobit transformation parameter: ", 
+                        round(AcRate[2]/i, digits = 2), sep = ""),appendLF=FALSE)
+            message(" ",appendLF=TRUE)
           }
           else {
-            cat("ACCEPTANCE RATE for Metropolis-Hastings step after burn-in:")
-            cat(paste("  Hyperparameters: ", round(AcRate2[1]/i, 
-                                                   digits = 2), sep = ""))
+            message("ACCEPTANCE RATE for Metropolis-Hastings step after burn-in:",appendLF=FALSE)
+            message(paste("  Hyperparameters: ", round(AcRate2[1]/i, 
+                                                   digits = 2), sep = ""),appendLF=FALSE)
             if (DataModel == "SkewTobit") 
-              cat(paste(",  Tobit transformation parameter: ", 
-                        round(AcRate2[2]/i, digits = 2), sep = ""))
-            cat("\n")
+              message(paste(",  Tobit transformation parameter: ", 
+                        round(AcRate2[2]/i, digits = 2), sep = ""),appendLF=FALSE)
+            message(" ",appendLF=TRUE)
           }
         }
       }
@@ -1084,6 +1089,8 @@ spate.mcmc=function (y, coord = NULL, lengthx = NULL, lengthy = NULL, Sind = NUL
               dev.set(devProc)
             }
           }
+          opar <- par(no.readonly =TRUE)
+          on.exit(par(opar))
           par(mfrow = c(ny, nx), oma = c(0, 0, 0, 0), 
               mar = c(2, 2, 2, 0.2))
           trace.plot(xiTrace[, 1:(i + 1)])
@@ -1391,12 +1398,16 @@ plot.spateMCMC <- function(x,...,trace=TRUE,hist=TRUE,medianHist=TRUE,pairs=FALS
   if(dim(post)[1]%%nx==0) ny <- ny-1
   if(trace){
     if(ToFile) jpeg(paste(path,"Traces_",file,".jpeg",sep=""),width = 750, height = 500)
+    opar <- par(no.readonly =TRUE)
+    on.exit(par(opar))
     par(mfrow=c(ny,nx),oma=c(0,0,0,0),mar=c(2,2,2,0.2),ask=ask)
     trace.plot(post,BurnIn=x$BurnIn,true=true,BurnInAdaptive=BurnInAdaptive)
     if(ToFile) dev.off()
   }
   if(hist &  dim(post)[2]>(x$BurnIn+100)){
     if(ToFile) jpeg(paste(path,"PostDist_",file,".jpeg",sep=""),width = 500, height = 500)
+    opar <- par(no.readonly =TRUE)
+    on.exit(par(opar))
     par(mfrow=c(ny,nx),oma=c(0,0,0,0),mar=c(2,2,2,0.2),ask=ask)
     post.dist.hist(x[[1]][,-c(1:x$BurnIn)],true=true,median=medianHist)
     if(ToFile) dev.off()
@@ -1410,6 +1421,8 @@ plot.spateMCMC <- function(x,...,trace=TRUE,hist=TRUE,medianHist=TRUE,pairs=FALS
     }
     PostSample <- x[[1]][,spl]
     col="#00009950"
+    opar <- par(no.readonly =TRUE)
+    on.exit(par(opar))
     par(ask=ask)
     if(ToFile) jpeg(paste(path,"Pairs_",file,".jpeg",sep=""),width = 1000, height = 1000)
     pairs(t(PostSample),pch=".",cex=4,col=col)

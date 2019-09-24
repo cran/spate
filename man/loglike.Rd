@@ -107,12 +107,11 @@ parI[logInd] <- log(parI[logInd])
 wFT <- real.fft.TS(w,n=n,T=T)
 ##ML estimation using optim, takes a couple of seconds
 ##Load the precomputed object a line below to save time
-spateMLE <-
-optim(par=parI,loglike,control=list(trace=TRUE,maxit=1000),wFT=wFT,method="L-BFGS-B",
-     lower=c(-10,-10,-10,-10,-10,0,-0.5,-0.5,-10),
-     upper=c(10,10,10,10,10,pi/2,0.5,0.5,10),negative=TRUE,
-     logScale=TRUE,hessian=TRUE,n=n,T=T)
-##data("spateMLE")
+##spateMLE <- optim(par=parI,loglike,control=list(trace=TRUE,maxit=1000),wFT=wFT,method="L-BFGS-B",
+##     lower=c(-10,-10,-10,-10,-10,0,-0.5,-0.5,-10),
+##     upper=c(10,10,10,10,10,pi/2,0.5,0.5,10),negative=TRUE,
+##     logScale=TRUE,hessian=TRUE,n=n,T=T)
+data("spateMLE")
 
 mle <- spateMLE$par
 mle[logInd] <- exp(mle[logInd])

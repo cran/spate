@@ -77,11 +77,13 @@ for(i in 1:Nmc){
 alphaMean <- apply(alphaS,c(1,2),mean)
 xiMean <- real.fft.TS(alphaMean,n=n,T=T,inv=FALSE)
 
+opar <- par(no.readonly = TRUE)
 par(mfrow=c(2,4),mar=c(1,1,1,1))
 for(t in 1:4) image(1:n,1:n,matrix(w[t,],nrow=n),xlab="",ylab="",col=cols(),
                     main=paste("w(",t,")",sep=""),xaxt='n',yaxt='n')
 for(t in 1:4) image(1:n,1:n,matrix(xiMean[t,],nrow=n),xlab="",ylab="",col=cols(),
                     main=paste("xiPost(",t,")",sep=""),xaxt='n',yaxt='n')
+par(opar) # Reset par() settings
 }
 
 \author{

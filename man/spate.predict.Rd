@@ -131,6 +131,7 @@ predict <- spate.predict(y=w,tPred=(17:25),spateMCMC=spateMCMC,Nsim =200,
 Pmean <- apply(predict,c(1,2),mean)
 Psd <- apply(predict,c(1,2),sd)
 
+opar <- par(no.readonly = TRUE)
 par(mfrow=c(2,2))
 image(1:20,1:20,matrix(w[19,],nrow=20),main="Observed field at t=19",xlab="x",ylab="y")
 image(1:20,1:20,matrix(Pmean[3,],nrow=20),main="Fitted field at t=19",xlab="x",ylab="y")
@@ -149,5 +150,6 @@ zlim=c(min(Psd),max(Psd))
 for(i in 1:9){
   image(1:20,1:20,matrix(Psd[i,],nrow=20),zlim=zlim,
         main=paste("Std.dev. t=",i+16,sep=""),xlab="x",ylab="y")
+par(opar) # Reset par() settings
 }
 }
