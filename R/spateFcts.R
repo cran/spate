@@ -178,7 +178,7 @@ real.fft <- function(w,n,inv=TRUE,indFFT=NULL){
 ## }
   
 real.fft.TS <- function(w,n,T,inv=TRUE,indFFT=NULL){
-  if(class(w)=="matrix"){
+  if(is.matrix(w)){
     w <- TSmat.to.vect(w)
     Mat <- TRUE
   }else{
@@ -1265,7 +1265,7 @@ ffbs.spectral <- function(w=NULL,wFT=NULL,spec=NULL,Gvec=NULL,tau2=NULL,par=NULL
    if(is.null(wFT)){
      wFT <- real.fft.TS(TSmat.to.vect(w),n=n,T=T,inv=TRUE)
    }else{
-     if(class(wFT)=="matrix"){
+     if(is.matrix(wFT)){
        wFT <- TSmat.to.vect(wFT)
      }
      if(length(wFT)!=(n*n*T)){
