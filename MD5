@@ -1,4 +1,4 @@
-41193ce4ba1475fcf12107e124818e31 *DESCRIPTION
+b591d728ea179c528e73ea01633ec501 *DESCRIPTION
 649e1f9d0f7a172cc7dcc2cfe349e08b *NAMESPACE
 9b1043e19cc4b1bccbe64174229f6557 *R/spateFcts.R
 c89ff70f4d485583db5d81629d82b91b *README.md
@@ -12,7 +12,7 @@ a6772d85f298beae954f0dafcda72ab2 *data/spateMLE.RData
 67af120a532659ac5c46ddf88d6838f1 *inst/CITATION
 1695b3b2539eaf2d65e430b2e705f683 *inst/doc/spate_tutorial.R
 356b729ba24190d78b30e9dc9e862d5b *inst/doc/spate_tutorial.Rnw
-2169d618f5eb20736ced3a791acc4f66 *inst/doc/spate_tutorial.pdf
+fadd501cb10f660deb4d8b88990c023d *inst/doc/spate_tutorial.pdf
 430e07fa03f311d3f0e170fd5a6ae613 *man/Palpha.Rd
 070f1c4255acaf086ac2c4db0404b620 *man/Pgamma.Rd
 1dfea605d0a7cbe8cbdb86ff02d92e5e *man/Plambda.Rd
